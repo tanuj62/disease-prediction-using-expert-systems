@@ -1,0 +1,164 @@
+class ExpertSystem:
+    def __init__(self):
+        self.rules = []
+        self.symptoms = set()
+
+    def add_rule(self, rule):
+        self.rules.append(rule)
+
+    def diagnose(self, symptoms):
+        self.symptoms = set(symptoms)
+        potential_diseases = []
+        exact_diagnosis = None
+
+        for rule in self.rules:
+            matching_symptoms = self.symptoms.intersection(rule.symptoms)
+
+            # Check if all symptoms match exactly
+            if self.symptoms == rule.symptoms:
+                exact_diagnosis = rule.disease
+
+            # Check if the provided symptoms are a subset of the rule's symptoms
+            elif self.symptoms.issubset(rule.symptoms):
+                potential_diseases.append(rule.disease)
+
+        # If an exact diagnosis is found, return it
+        if exact_diagnosis:
+            return f"\n🚑 **Exact Diagnosis:** {exact_diagnosis}"
+
+        # Otherwise, return potential diseases if all user symptoms are a subset of the rule's symptoms
+        if potential_diseases:
+            return f"\n🩺 **Potential Diagnoses:** " + ", ".join(potential_diseases)
+
+        # If no diagnosis could be made at all
+        return "\n❗ **No diagnosis could be made based on the symptoms provided.**"
+
+
+class Rule:
+    def __init__(self, disease, symptoms):
+        self.disease = disease
+        self.symptoms = set(symptoms)
+
+
+def main():
+    # Initialize the Expert System
+    system = ExpertSystem()
+
+    # Adding rules for diseases
+    system.add_rule(Rule("Irritable Bowel Syndrome (IBS)", ["abdominal pain", "bloating", "changes in bowel habits"]))
+    system.add_rule(Rule("Osteoarthritis", ["joint pain", "stiffness", "swelling", "decreased range of motion"]))
+    system.add_rule(Rule("Rheumatoid Arthritis", ["joint pain", "swelling", "morning stiffness", "fatigue"]))
+    system.add_rule(Rule("Multiple Sclerosis", ["fatigue", "numbness", "vision problems", "difficulty walking"]))
+    system.add_rule(Rule("Parkinson's Disease", ["tremors", "stiffness", "slowed movement", "balance issues"]))
+    system.add_rule(Rule("Celiac Disease", ["abdominal pain", "bloating", "diarrhea", "weight loss"]))
+    system.add_rule(Rule("Peanut Allergy", ["hives", "difficulty breathing", "swelling", "stomach cramps"]))
+    system.add_rule(Rule("Tension Headaches", ["headache", "tightness in neck", "sensitivity to light"]))
+    system.add_rule(Rule("Hypothyroidism", ["fatigue", "weight gain", "cold intolerance", "depression"]))
+    system.add_rule(Rule("Hyperthyroidism", ["weight loss", "rapid heartbeat", "sensitivity to heat", "nervousness"]))
+    system.add_rule(
+        Rule("Urinary Tract Infection (UTI)", ["painful urination", "frequent urge to urinate", "cloudy urine"]))
+    system.add_rule(Rule("Constipation", ["infrequent bowel movements", "hard stools", "abdominal discomfort"]))
+    system.add_rule(Rule("Common Cold", ["runny nose", "sore throat", "cough", "congestion"]))
+    system.add_rule(Rule("Flu", ["fever", "headache", "body aches", "fatigue", "cough"]))
+    system.add_rule(Rule("Diabetes", ["excessive thirst", "frequent urination", "fatigue"]))
+    system.add_rule(Rule("Hypertension", ["headache", "chest pain", "shortness of breath"]))
+    system.add_rule(Rule("Asthma", ["wheezing", "shortness of breath", "chest tightness"]))
+    system.add_rule(Rule("Tuberculosis", ["persistent cough", "night sweats", "weight loss"]))
+    system.add_rule(Rule("Pneumonia", ["fever", "chest pain", "cough", "shortness of breath"]))
+    system.add_rule(Rule("Migraine", ["headache", "sensitivity to light", "nausea", "vomiting"]))
+    system.add_rule(Rule("Gastritis", ["stomach pain", "nausea", "vomiting", "indigestion"]))
+    system.add_rule(Rule("Appendicitis", ["abdominal pain", "fever", "nausea", "vomiting"]))
+    system.add_rule(Rule("Peptic Ulcer", ["stomach pain", "indigestion", "bloating"]))
+    system.add_rule(Rule("COVID-19", ["fever", "cough", "fatigue", "loss of taste", "shortness of breath"]))
+    system.add_rule(Rule("Bronchitis", ["cough", "fatigue", "shortness of breath", "chest discomfort"]))
+
+    # More rules can be added similarly...
+    system.add_rule(Rule("Anemia", ["fatigue", "pale skin", "shortness of breath", "dizziness"]))
+    system.add_rule(
+        Rule("Thyroid Disorder", ["fatigue", "weight changes", "sensitivity to temperature", "mood changes"]))
+    system.add_rule(Rule("Kidney Infection", ["back pain", "frequent urination", "burning sensation", "fever"]))
+    system.add_rule(Rule("Gallstones", ["abdominal pain", "nausea", "indigestion", "bloating"]))
+    system.add_rule(Rule("Dementia", ["memory loss", "confusion", "difficulty concentrating", "personality changes"]))
+    system.add_rule(Rule("Obstructive Sleep Apnea", ["loud snoring", "gasping for air", "daytime sleepiness"]))
+    system.add_rule(Rule("Psoriasis", ["red patches of skin", "scaly plaques", "itchiness"]))
+    system.add_rule(Rule("Lupus", ["fatigue", "joint pain", "skin rashes", "fever"]))
+    system.add_rule(Rule("Diverticulitis", ["abdominal pain", "fever", "nausea", "changes in bowel habits"]))
+    system.add_rule(
+        Rule("Fibromyalgia", ["widespread pain", "fatigue", "sleep disturbances", "cognitive difficulties"]))
+    system.add_rule(Rule("Chronic Fatigue Syndrome",
+                         ["extreme fatigue", "muscle pain", "sleep disturbances", "cognitive difficulties"]))
+    system.add_rule(Rule("Acid Reflux", ["heartburn", "regurgitation", "difficulty swallowing", "chest pain"]))
+    system.add_rule(Rule("Liver Cirrhosis", ["fatigue", "nausea", "jaundice", "swelling in legs"]))
+    system.add_rule(Rule("Hemorrhoids", ["rectal pain", "bleeding", "itching", "swelling"]))
+    system.add_rule(Rule("Croup", ["barking cough", "difficulty breathing", "fever", "hoarseness"]))
+    system.add_rule(
+        Rule("Anxiety Disorder", ["excessive worry", "restlessness", "fatigue", "difficulty concentrating"]))
+    system.add_rule(Rule("Post-Traumatic Stress Disorder (PTSD)",
+                         ["flashbacks", "nightmares", "severe anxiety", "emotional distress"]))
+    system.add_rule(
+        Rule("Depression", ["persistent sadness", "loss of interest", "fatigue", "difficulty concentrating"]))
+    system.add_rule(Rule("Bipolar Disorder", ["mood swings", "energy changes", "difficulty with relationships"]))
+    system.add_rule(Rule("Panic Disorder", ["rapid heartbeat", "sweating", "shaking", "feeling of impending doom"]))
+    system.add_rule(
+        Rule("Schizophrenia", ["delusions", "hallucinations", "disorganized thinking", "lack of motivation"]))
+    system.add_rule(Rule("Alzheimer's Disease", ["memory loss", "confusion", "difficulty performing familiar tasks"]))
+    system.add_rule(Rule("Hernia", ["bulging area", "pain or discomfort", "weakness", "burning sensation"]))
+    system.add_rule(Rule("Acne", ["pimples", "blackheads", "whiteheads", "oiliness"]))
+    system.add_rule(Rule("Cholecystitis", ["abdominal pain", "nausea", "vomiting", "fever"]))
+    system.add_rule(Rule("Skin Cancer", ["new growth on skin", "change in existing mole", "sore that doesn't heal"]))
+    system.add_rule(Rule("Osteoporosis", ["brittle bones", "back pain", "loss of height", "stooped posture"]))
+    system.add_rule(Rule("Thrombosis", ["swelling", "pain", "warmth in leg", "red or discolored skin"]))
+    system.add_rule(Rule("Vitamin D Deficiency", ["fatigue", "bone pain", "muscle weakness", "mood changes"]))
+    system.add_rule(Rule("Bacterial Vaginosis", ["unusual vaginal discharge", "fishy odor", "itching"]))
+    system.add_rule(Rule("Menopause", ["hot flashes", "night sweats", "mood changes", "irregular periods"]))
+    system.add_rule(Rule("Gout", ["sudden joint pain", "redness", "swelling", "tenderness"]))
+    system.add_rule(Rule("Pneumothorax", ["sudden chest pain", "shortness of breath", "rapid breathing"]))
+    system.add_rule(Rule("Varicose Veins", ["swollen veins", "aching legs", "burning sensation", "cramping"]))
+    system.add_rule(Rule("Reactive Arthritis", ["joint pain", "swelling", "redness", "stiffness"]))
+    system.add_rule(Rule("Chronic Sinusitis", ["facial pain", "nasal congestion", "headache", "cough"]))
+    system.add_rule(Rule("Cystitis", ["painful urination", "frequent urge to urinate", "pelvic pain"]))
+    system.add_rule(Rule("Thyroid Storm", ["rapid heartbeat", "fever", "nausea", "confusion"]))
+    system.add_rule(Rule("Toxic Shock Syndrome", ["high fever", "rash", "low blood pressure", "confusion"]))
+    system.add_rule(Rule("Nephrotic Syndrome", ["swelling", "protein in urine", "weight gain", "fatigue"]))
+    system.add_rule(Rule("Hemophilia", ["prolonged bleeding", "easy bruising", "joint pain"]))
+    system.add_rule(Rule("Marfan Syndrome", ["tall stature", "long limbs", "heart problems", "vision problems"]))
+    system.add_rule(Rule("Down Syndrome", ["distinct facial features", "developmental delays", "poor muscle tone"]))
+    system.add_rule(
+        Rule("Huntington's Disease", ["uncontrolled movements", "emotional disturbances", "cognitive decline"]))
+    system.add_rule(Rule("Ehlers-Danlos Syndrome", ["hyper-flexible joints", "skin that bruises easily", "joint pain"]))
+    system.add_rule(Rule("Meniere's Disease", ["vertigo", "hearing loss", "tinnitus", "fullness in ear"]))
+    system.add_rule(Rule("Raynaud's Disease", ["cold fingers or toes", "color changes in skin", "numbness"]))
+    system.add_rule(Rule("Chronic Kidney Disease", ["fatigue", "swelling in ankles", "changes in urination"]))
+    system.add_rule(Rule("Acute Myeloid Leukemia", ["fatigue", "pale skin", "easy bruising", "frequent infections"]))
+    system.add_rule(Rule("Laryngitis", ["hoarseness", "sore throat", "dry cough", "difficulty speaking"]))
+    system.add_rule(Rule("Epilepsy", ["seizures", "confusion", "loss of consciousness", "staring spells"]))
+    system.add_rule(Rule("Lyme Disease", ["rash", "fever", "joint pain", "fatigue"]))
+    system.add_rule(Rule("Mononucleosis", ["fatigue", "sore throat", "fever", "swollen lymph nodes"]))
+    system.add_rule(Rule("Malaria", ["fever", "chills", "sweating", "headache"]))
+    system.add_rule(Rule("Gastroenteritis", ["diarrhea", "vomiting", "stomach pain", "dehydration"]))
+    system.add_rule(Rule("Leukemia", ["fatigue", "bruising", "frequent infections", "pale skin"]))
+    system.add_rule(Rule("Rubella", ["rash", "fever", "swollen lymph nodes", "muscle pain"]))
+
+    # Welcome message
+    print("\n🔍 **Welcome to the Medical Expert System!**")
+    print("Please enter your symptoms one by one. Type 'done' when you have finished entering your symptoms.\n")
+
+    # Collecting symptoms from user input
+    patient_symptoms = []
+    while True:
+        symptom = input("Enter a symptom (or type 'done' to finish): ").strip().lower()
+        if symptom == 'done':
+            break
+        if symptom:
+            patient_symptoms.append(symptom)
+
+    # Diagnosing the symptoms
+    if patient_symptoms:
+        diagnosis = system.diagnose(patient_symptoms)
+        print(diagnosis)
+    else:
+        print("\n❗ **You did not provide any symptoms. Please try again.**")
+
+
+if __name__ == "__main__":
+    main()
